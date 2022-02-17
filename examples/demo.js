@@ -1,4 +1,4 @@
-const { GetProcessorID, GetCpuInfo, Ping, GetIp, NetSh } = require("node-system");
+const { GetProcessorID, GetCpuInfo, Ping, GetIp, NetSh } = require("../lib/node-system");
 // GetProcessorID().then(cupid => {
 //     console.log(cupid)
 // })
