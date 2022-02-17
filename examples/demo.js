@@ -20,6 +20,15 @@ const net_shell = NetSh();
 net_shell.scan().then(list => {
     console.log(list)
 })
-net_shell.currentConnect().then(val => {
-    console.log(val)
-})
+// net_shell.currentConnect().then(val => {
+//     console.log(val)
+// })
+// net_shell.disconnect().then(val => {
+//     console.log(val.length)
+//     if (!val) {
+//         console.log("断开失败")
+//     } else {
+//         console.log(val)
+//     }
+// })
+// net_shell.connnect({ssid: '痘博士_5G', password: 'douboshi'})
