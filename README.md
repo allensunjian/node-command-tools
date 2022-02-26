@@ -1,6 +1,14 @@
 # node-command-tools
 cpuinfo/IP address/Ping another web url/wifi controller
 
+Install
+
+```
+npm install node-command-tools --dev
+```
+
+Getting Start
+
 ```javascript
 const { GetProcessorID, GetCpuInfo, Ping, GetIp, NetSh } = require("node-system");
 GetProcessorID().then(cupid => {
