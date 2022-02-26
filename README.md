@@ -2,7 +2,7 @@
 cpuinfo/IP address/Ping another web url/wifi controller
 
 ```javascript
-const { GetProcessorID, GetCpuInfo, Ping, GetIp, NetSh } = require("../src/node-system");
+const { GetProcessorID, GetCpuInfo, Ping, GetIp, NetSh } = require("node-system");
 GetProcessorID().then(cupid => {
     console.log(cupid)
 })
