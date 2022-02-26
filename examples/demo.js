@@ -1,4 +1,19 @@
 const { GetProcessorID, GetCpuInfo, Ping, GetIp, NetSh } = require("../src/node-system");
+const wifi = require("node-wifi");
+wifi.init({
+    iface: null
+})
+// wifi.scan((err, networks) => {
+//     console.log("wifi-------------------")
+//     console.log(networks.map( o => o.ssid ))
+// })
+// wifi.connect({ ssid: 'ONEPLUS', password: 'sjx131415' }, () => {
+//     console.log('Connected');
+//     // on windows, the callback is called even if the connection failed due to netsh limitations
+//     // if your software may work on windows, you should use `wifi.getCurrentConnections` to check if the connection succeeded
+// });
+
+
 // GetProcessorID().then(cupid => {
 //     console.log(cupid)
 // })
@@ -17,9 +32,10 @@ const { GetProcessorID, GetCpuInfo, Ping, GetIp, NetSh } = require("../src/node-
 // })   
 
 const net_shell = NetSh();
-net_shell.scan().then(list => {
-    console.log(JSON.stringify(list))
-})
+// net_shell.scan().then(list => {
+//     console.log("system-----------------------------------")
+//     console.log(list.map( o => o.SSID))
+// })
 // net_shell.currentConnect().then(val => {
 //     console.log(val)
 // })
@@ -31,4 +47,12 @@ net_shell.scan().then(list => {
 //         console.log(val)
 //     }clear
 // })
-// net_shell.connnect({ssid: '痘博士_5G', password: 'douboshi'})
+net_shell.connnect({ ssid: 'ONEPLUS', password: 'sjx131415' }, 
+function success(text) {
+    console.log(text)
+},
+function error (err) {
+    console.log(123123,err)
+}
+)
+net_shell.disconnect()

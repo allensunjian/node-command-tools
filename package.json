@@ -2,17 +2,24 @@
   "name": "node-system",
   "version": "1.0.0",
   "description": "cpuinfo/IP address/Ping another web url/wifi controller",
-  "main": "./lib/node-system.js",
+  "main": "./src/node-system.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-"repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/allensunjian/node-system"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "directories": {
+    "test": "test"
   },
   "author": "Allen sun  <Allen_sun_js@hotmail.com>",
   "license": "ISC",
   "dependencies": {
+    "jest": "27.5.1",
     "iconv-lite": "^0.6.3"
   }
 }

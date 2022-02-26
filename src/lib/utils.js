@@ -271,7 +271,10 @@ const FormatterLib = {
         return val.replace(/\r|\n/g, "")
     },
     PRAVITECONNECT: function (val) {
-        console.log(val)
+        return val.stdout
+    },
+    PRAVITECONNECTFINALL: function (val) {
+        return val.stdout
     }
 };
 

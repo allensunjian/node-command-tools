@@ -9,22 +9,26 @@ const path = require('path');
 const fs = require("fs");
 const profilePath = path.join(require('os').tmpdir(), PROFILENAME)
 
-process.on("uncaughtException", (err) => {
-    console.log(1123, err)
-})
-
 const ExecCore = (command, formatter) => {
     return (resolve, reject) => {
-        exec(command, { encoding: 'buffer' }, (error, stdout, stderr) => {
-            if (error) {
-                reject(error)
-                return;
-            }
-            resolve(formatter(iconv.decode(stdout, 'cp936')))
-        })
+        try {
+            exec(command, { encoding: 'buffer' }, (error, stdout, stderr) => {
+                if (error) {
+                    reject(error)
+                    return;
+                }
+                resolve(formatter(iconv.decode(stdout, 'cp936')))
+            })
+        } catch (error) {
+            // dosome... have nothing idea
+            reject(error)
+        }
+
     }
 }
-
+process.on("uncaughtException", err => {
+    console.log(err)
+})
 const ExecFileCore = (command, formatter, charset = 'cp936') => {
     return (resolve, reject) => {
         const Callback = (err, stdout) => {
@@ -38,7 +42,13 @@ const ExecFileCore = (command, formatter, charset = 'cp936') => {
             }))
         };
         command.push(Callback);
-        execFile.apply(null, command)
+        try {
+            execFile.apply(null, command)
+        } catch (error) {
+            // dosome... have nothing idea
+            reject(error)
+        }
+
     }
 }
 const ExceFileCaller = (command, formatter, charset) => ({
@@ -70,27 +80,47 @@ const disconnect = () => {
     return PromiseShell(ExceFileCaller(Command_ExecFile.NetShellDisconnect, CallbackFormatterGen('NETHSDISCONNECT')))
 }
 
-const _connect = () => {
+const _appendConfigToSetting = (profilePath) => {
     return PromiseShell(ExceFileCaller(Command_ExecFile.NetShellConnect(profilePath), CallbackFormatterGen('PRAVITECONNECT')))
 }
 
-const connnect = async (config = {}) => {
+const _connect = (ssid) => {
+    return PromiseShell(ExceFileCaller(Command_ExecFile.NetShellConnectFinall(ssid), CallbackFormatterGen('PRAVITECONNECTFINALL')))
+}
+
+const _delProFile = (ssid) => {
+    return PromiseShell(ExceFileCaller(Command_ExecFile.NetProFileDel(ssid), CallbackFormatterGen('PRAVITECONNECTFINALL')))
+}
+const _connectedEnd = (ssid) => {
+    return PromiseShell(ExceFileCaller(Command_ExecFile.NetProFileEnd(ssid), CallbackFormatterGen('PRAVITECONNECTFINALL')))
+}
+
+const connnect = async (config = {}, Callback = NOOP, Catch = NOOP) => {
     const { ssid, password } = config;
     if (!ssid && !password) {
         throw new Error("connect method param config must include ssid and password")
     }
-    console.log(profilePath)
-    // TODO尝试链接  
-    // let connectStatus = await _connect();
-    // console.log(connectStatus)
-    
-    // return
-    // DONE 没连上 写入wifi配置文件
-    let wifiList = await scan();
-    console.log(wifiList.map( o => o.SSID));
-    const target = wifiList.find(o => o.SSID == config.ssid);
-    if (!target) throw Error("can not found SSID:" + config.ssid);
-    fs.writeFileSync(profilePath, utils.win32WirelessProfileBuilder(target, config.password))
+    try {
+        let wifiList = await scan();
+        const target = wifiList.find(o => o.SSID == config.ssid);
+        if (!target) {
+            Catch("can not found SSID:" + config.ssid);
+            return
+        }
+
+        fs.writeFileSync(profilePath, utils.win32WirelessProfileBuilder(target, config.password))
+        // todo connect taget ssid
+
+        let connectStatus = await _appendConfigToSetting(profilePath);
+        if (connectStatus) {
+            const state = await _connect(config.ssid);
+            if (state) { Callback(state) } else Catch("unknown error")
+            _connectedEnd(config.ssid);
+        } else Catch("unknown error");
+    } catch (error) {
+        Catch('unknown error');
+        _delProFile()
+    }
 }
 const NetSh = () => {
     return { scan, currentConnect, disconnect, connnect }
