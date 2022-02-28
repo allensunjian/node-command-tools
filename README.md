@@ -11,23 +11,30 @@ Getting Start
 
 ```javascript
 const { GetProcessorID, GetCpuInfo, Ping, GetIp, NetSh } = require("node-system");
+
+// cup serial number
 GetProcessorID().then(cupid => {
     console.log(cupid)
 })
-
+// cup information
 GetCpuInfo().then(cupinfo => {
     console.log(cupinfo);
 })
+
+// network latency
 const pingClient = Ping("www.baidu.com");
 pingClient().then(val => {
     console.log(val)
 }).catch(err => {
     console.log(err)
 })
+
+// ip address
 GetIp().then(val => {
     console.log(123,val) 
 })   
 
+// wifi controll
 const net_shell = NetSh();
 net_shell.scan().then(list => {
     console.log('networks:', list)
