@@ -1,19 +1,4 @@
 const { GetProcessorID, GetCpuInfo, Ping, GetIp, NetSh } = require("../src/node-system");
-const wifi = require("node-wifi");
-wifi.init({
-    iface: null
-})
-// wifi.scan((err, networks) => {
-//     console.log("wifi-------------------")
-//     console.log(networks.map( o => o.ssid ))
-// })
-// wifi.connect({ ssid: 'ONEPLUS', password: 'sjx131415' }, () => {
-//     console.log('Connected');
-//     // on windows, the callback is called even if the connection failed due to netsh limitations
-//     // if your software may work on windows, you should use `wifi.getCurrentConnections` to check if the connection succeeded
-// });
-
-
 // GetProcessorID().then(cupid => {
 //     console.log(cupid)
 // })
