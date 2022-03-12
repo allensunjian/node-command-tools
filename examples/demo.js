@@ -1,4 +1,5 @@
 const { GetProcessorID, GetCpuInfo, Ping, GetIp, NetSh } = require("../src/node-system");
+
 // GetProcessorID().then(cupid => {
 //     console.log(cupid)
 // })
@@ -32,11 +33,12 @@ GetCpuInfo().then(cupinfo => {
 //         console.log(val)
 //     } clear
 // })
-// net_shell.connnect({ ssid: 'ONEPLUS', password: 'sjx131415' },
-//     function success(text) {
-//         console.log(text)
-//     },
-//     function error(err) {
-//         console.log(123123, err)
-//     }
-// )
+net_shell.connnect({ ssid: 'ONEPLUS', password: 'sjx131415' }, 
+function success(text) {
+    console.log(text)
+},
+function error (err) {
+    console.log(123123,err)
+}
+)
+net_shell.disconnect()
