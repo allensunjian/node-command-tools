@@ -31,13 +31,13 @@ const NAME = 'name';
 const DEL = 'delete'
 
 /**
- * value derctive
+ * value instruction
  */
 const VAL_BSSID = 'Bssid';
-const VAL_SSID = 'ssid'
+const VAL_SSID = 'ssid' 
 
 /**
- * methods derctive
+ * methods instruction
  */
 const METHOD_ADD = 'add'
 
@@ -54,4 +54,4 @@ const Command_ExecFile = {
 module.exports = {
     Commands,
     Command_ExecFile
-}
+} 

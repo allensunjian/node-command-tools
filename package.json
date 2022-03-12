@@ -1,6 +1,6 @@
 {
-  "name": "node-system",
-  "version": "1.0.0",
+  "name": "node-command-tools",
+  "version": "1.0.1",
   "description": "cpuinfo/IP address/Ping another web url/wifi controller",
   "main": "./src/node-system.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/allensunjian/node-system"
+    "url": "https://github.com/allensunjian/node-command-tools"
   },
   "engines": {
     "node": ">=10.0.0"

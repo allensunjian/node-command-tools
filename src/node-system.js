@@ -21,7 +21,7 @@ const ExecCore = (command, formatter) => {
             })
         } catch (error) {
             // dosome... have nothing idea
-            reject(error)
+            reject("Unknown error")
         }
 
     }
@@ -46,7 +46,7 @@ const ExecFileCore = (command, formatter, charset = 'cp936') => {
             execFile.apply(null, command)
         } catch (error) {
             // dosome... have nothing idea
-            reject(error)
+            reject("Unknown error")
         }
 
     }
@@ -150,5 +150,8 @@ module.exports = {
         return GetPING(Commands.PING + url)
     },
     GetIp: GetIp(Commands.LOACLIP),
-    NetSh
+    NetSh,
+    Command (command) {
+        return () => PromiseShell(ExecCaller(command, val => val))
+    }
 }
