@@ -1,6 +1,6 @@
 {
   "name": "node-command-tools",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "cpuinfo/IP address/Ping another web url/wifi controller",
   "main": "./src/node-system.js",
   "scripts": {
